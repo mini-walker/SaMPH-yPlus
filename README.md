@@ -110,21 +110,6 @@ The compiled output will be in the `dist/` directory.
 
 ---
 
-## Methodology
-
-SaMPH-yPlus uses well-established empirical correlations:
-
-### Governing Equations
-
-| Parameter              | Formula / Theory                                                        |
-| :--------------------- | :---------------------------------------------------------------------- |
-| **Reynolds Number**    | $Re = \frac{\rho U L}{\mu}$                                             |
-| **Wall Shear Stress**  | $\tau_w = \frac{1}{2} C_f \rho U^2$                                     |
-| **Friction Velocity**  | $u_\tau = \sqrt{\frac{\tau_w}{\rho}}$                                   |
-| **y+ Definition**      | $y^+ = \frac{\rho \Delta y u_\tau}{\mu}$                                |
-| **First-Grid Spacing** | $\Delta S = \frac{y^+ \mu}{\rho u_\tau}$ (adjusted for Cell vs. Vertex) |
-
----
 
 ## Project Structure
 
@@ -166,6 +151,3 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
   <sub>Precision Mesh, Better Results.</sub>
 </p>
 =======
-# SaMPH-yPlus
-A Python-Based Tool for Near-Wall Mesh Parameter Estimation in CFD Simulations
->>>>>>> 35210ce359062e2f1d49ead71ff8ab8c64f57dd3
