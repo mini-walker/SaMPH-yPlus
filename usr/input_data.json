@@ -1,0 +1,11 @@
+{
+    "freestream_velocity": "1",
+    "freestream_density": "1.225",
+    "dynamic_viscosity": "0.000017894",
+    "reference_length": "1",
+    "grid_stretch_ratio": "1.2",
+    "desired_yPlus": "1",
+    "spatial_discretization_scheme": "Vertex-centered",
+    "skin_friction_formula": "Prandtl-Kármán (1932)",
+    "boundary_layer_formula": "Schlichting (1979)"
+}

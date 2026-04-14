@@ -1,0 +1,120 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+
+\title{Calculation Formulas for y$^+$ and Boundary Layer Parameters}
+% \author{Shanqin}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This document summarizes the formulas used for calculating $y^+$, Reynolds number, skin friction coefficient, boundary layer thickness, first-grid spacing, and number of prism layers in CFD mesh generation. All formulas are referenced from classical fluid mechanics literature.
+
+\section{Formulas}
+
+\subsection{Kinematic Viscosity}
+The kinematic viscosity is calculated from dynamic viscosity and fluid density:
+\begin{equation}
+\nu = \frac{\mu}{\rho}
+\end{equation}
+where $\mu$ is the dynamic viscosity, and $\rho$ is the freestream density.
+
+\subsection{Reynolds Number}
+\begin{equation}
+Re = \frac{U_\infty L}{\nu}
+\end{equation}
+where $U_\infty$ is the freestream velocity, $L$ is the reference length, and $\nu$ is the kinematic viscosity.
+
+\subsection{Skin Friction Coefficient}
+
+The skin friction coefficient $C_f$ can be estimated using several empirical correlations depending on the Reynolds number and the flow regime:
+
+\begin{itemize}
+    \item \textbf{Prandtl–Schlichting (1979):}
+    \begin{equation}
+        C_f = \left[ 2 \log_{10}(Re) - 0.65 \right]^{-2.3}
+    \end{equation}
+    This correlation is mainly applicable to smooth flat-plate boundary layers in both laminar and turbulent regimes, and it is recommended for high Reynolds numbers ($Re \gtrsim 10^6$). For low-$Re$ or accelerating flows, it may yield noticeable errors.
+
+    \item \textbf{ITTC-1957 (Ship):}
+    \begin{equation}
+        C_f = \frac{0.075}{(\log_{10} Re - 2)^2}
+    \end{equation}
+    This empirical formula was proposed by the International Towing Tank Conference (ITTC) and is widely used in ship resistance prediction. It is suitable for high Reynolds number flows over ship hulls and other marine geometries, typically $Re > 10^6$.
+
+    \item \textbf{Prandtl–Kármán (1932):}
+    \begin{equation}
+        C_f = 0.026 \, Re^{-1/7}
+    \end{equation}
+    This correlation applies to turbulent flow over a flat plate, typically valid in the range $5 \times 10^5 < Re < 10^7$. For higher Reynolds numbers, deviations from experimental data may occur.
+\end{itemize}
+
+In summary, the choice of correlation depends on the Reynolds number and the geometry type. The ITTC-1957 line is generally recommended for ship-scale resistance estimation, while Prandtl–Schlichting or Prandtl–Kármán are more suitable for canonical turbulent boundary layer problems.
+
+\subsection{Boundary Layer Thickness}
+
+The boundary layer thickness $\delta$ can be approximated by empirical formulas derived from flat-plate turbulent flow experiments:
+
+\begin{itemize}
+    \item \textbf{Schlichting (1979):}
+    \begin{equation}
+        \delta = 0.37 \frac{L}{Re^{1/5}}
+    \end{equation}
+
+    \item \textbf{White (1991):}
+    \begin{equation}
+        \delta = 0.376 \frac{L}{Re^{1/5}}
+    \end{equation}
+\end{itemize}
+
+Both expressions are valid for turbulent boundary layers over smooth flat plates at high Reynolds numbers ($Re \gtrsim 10^6$). The difference between them lies only in the empirical coefficient, which has a negligible effect on practical grid spacing estimation in CFD.
+
+
+\subsection{First Grid Spacing}
+
+The first grid spacing $\Delta S$ is estimated based on the desired non-dimensional wall distance $y^+$, which relates the physical distance from the wall to the local shear stress and flow properties. The appropriate expression depends on how the flow variable (typically velocity) is stored in the numerical solver.
+
+If the solver adopts a \textbf{cell-centered} data structure, where the flow variables are defined at the cell centers, the distance from the wall to the first cell center is twice that of a node-based scheme. Therefore, the first grid spacing can be estimated as:
+\begin{equation}
+\Delta S = 2 \, y^+ \frac{L}{Re \sqrt{0.5 \, C_f}}
+\end{equation}
+
+In contrast, for a \textbf{vertex-centered} (or node-based) scheme, where the flow variables are defined at the grid vertices or nodes, the wall-adjacent data point is located directly at the first grid node. The corresponding formula becomes:
+\begin{equation}
+\Delta S = y^+ \frac{L}{Re \sqrt{0.5 \, C_f}}
+\end{equation}
+
+In both cases, the definition of $y^+$ is consistent:
+\begin{equation}
+y^+ = \frac{u_\tau \, \Delta S}{\nu}
+\end{equation}
+where $u_\tau = \sqrt{\tau_w / \rho}$ is the friction velocity, $\tau_w$ is the wall shear stress, and $\nu$ is the kinematic viscosity.
+
+These formulations ensure that the first grid layer accurately resolves the viscous sublayer region in wall-bounded turbulent flows, which is essential for near-wall modeling in RANS and LES simulations.
+
+
+\subsection{Number of Prism Layers}
+Assuming that the prism layers are distributed with a fixed stretching ratio $r > 1.0$:
+\begin{equation}
+N = \frac{\ln(1 - \frac{\delta}{\Delta S}(1 - r))}{\ln r}
+\end{equation}
+
+where $r$ is the grid stretching ratio in the prism layer.
+
+\section{References}
+\begin{enumerate}
+    \item White, Frank M., 2011. \textit{Fluid Mechanics}, 7th ed., New York: McGraw-Hill Science, Engineering \& Mathematics.
+    \item Spurk, H.J. and Aksel, N., 2008. \textit{Fluid Mechanics}, Berlin, Heidelberg: Springer Berlin Heidelberg.
+    \item Jin, S., Zha, R., Peng, H., Qiu, W. and McTaggart, K., 2024. Determination of Maneuvering Force Coefficients for a Destroyer Model with OpenFOAM. \textit{Journal of Ship Research}, 68(02), pp.39-65.
+    \item Jin, S., Zha, R., Peng, H., Qiu, W. and Gospodnetic, S., 2020, September. 2D CFD studies on effects of leading-edge propeller manufacturing defects on cavitation performance. In \textit{SNAME Maritime Convention} (p. D033S015R003). SNAME.
+    \item Jin, S., Peng, H. and Qiu, W., 2024. Numerical study on effects of leading-edge manufacturing defects on cavitation performance of a full-scale propeller. I. Simulation for the model-and full-scale propellers without defect. \textit{Physics of Fluids}.
+\end{enumerate}
+
+
+\end{document}
