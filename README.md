@@ -30,7 +30,7 @@
 
 **SaMPH-yPlus** is a professional desktop application designed for CFD (Computational Fluid Dynamics) engineers and researchers. It provides a modern, user-friendly interface to calculate critical near-wall grid parameters, including **y+**, **first-grid spacing**, **Reynolds number**, and **boundary layer thickness**.
 
-By accurately estimating the first layer height, users can ensure their mesh adheres to the requirements of various turbulence models (e.g., wall-resolved vs. wall-functions), leading to more reliable and convergent simulations.
+By accurately estimating the first layer height, users can ensure their mesh adheres to the requirements of various turbulence models, leading to more reliable and convergent simulations.
 
 ---
 
