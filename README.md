@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <p align="center">
   <img src="images/yPlus-calculator-logo-blue.png" alt="SaMPH-yPlus Logo" width="180"/>
 </p>
@@ -146,8 +145,3 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 **Contact**: sjin@mun.ca
 
 ---
-
-<p align="center">
-  <sub>Precision Mesh, Better Results.</sub>
-</p>
-=======
