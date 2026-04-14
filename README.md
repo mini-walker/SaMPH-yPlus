@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center">
   <img src="images/yPlus-calculator-logo-blue.png" alt="SaMPH-yPlus Logo" width="180"/>
 </p>
@@ -164,3 +165,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 <p align="center">
   <sub>Precision Mesh, Better Results.</sub>
 </p>
+=======
+# SaMPH-yPlus
+A Python-Based Tool for Near-Wall Mesh Parameter Estimation in CFD Simulations
+>>>>>>> 35210ce359062e2f1d49ead71ff8ab8c64f57dd3
