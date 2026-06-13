@@ -58,7 +58,6 @@ class Compute_Thread(QThread):
 
         self.input_data_file_path  = self.usr_dir / "input_data.json"
         self.output_data_file_path = self.usr_dir / "output_data.json"
-        self.calc_script    = Path(utils.resource_path("src/Algorithm/Calculate_yPlus.py")).resolve()
         self.base_dir       = Path(utils.resource_path("")).resolve()
         self.progress_path  = Path(utils.resource_path("usr/progress.txt")).resolve()
         self.stop_flag_path = Path(utils.resource_path("usr/stop.flag")).resolve()
@@ -69,20 +68,6 @@ class Compute_Thread(QThread):
         """
         Run the external calculation process and emit progress updates.
         """
-
-        # Determine calc file (Python or Fortran executable)
-        calc_path = self.calc_script
-        print(f'Calculation program path: {calc_path}')  # For debugging
-
-        # self.progress_signal.emit(f"Checking calculation program: {calc_path}")
-        # self.progress_signal.emit(f"Exists: {os.path.exists(calc_path)}")
-
-        if not os.path.exists(calc_path):
-            self.progress_signal.emit("Error: calculation program not found!")
-            return
-        
-        # Send the message to log window that the file exists
-        self.progress_signal.emit(f"Program exists: {os.path.exists(calc_path)}")
 
         # Start subprocess safely
         try:

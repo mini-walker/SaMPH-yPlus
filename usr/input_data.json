@@ -1,7 +1,7 @@
 {
     "freestream_velocity": "1",
-    "freestream_density": "1.225",
-    "dynamic_viscosity": "0.000017894",
+    "freestream_density": "1.204",
+    "dynamic_viscosity": "0.00001825",
     "reference_length": "1",
     "grid_stretch_ratio": "1.2",
     "desired_yPlus": "1",

@@ -37,6 +37,7 @@ By accurately estimating the first layer height, users can ensure their mesh adh
 ## Features
 
 ### 🚀 Scientific Core
+
 - **First-Grid Spacing ($\Delta S$)**: Automatic calculation based on target $y^+$ and flow conditions.
 - **Multiple Skin Friction ($C_f$) Formulas**:
   - Prandtl-Schlichting (1979)
@@ -48,15 +49,17 @@ By accurately estimating the first layer height, users can ensure their mesh adh
 - **Mesh Layering**: Estimate the number of prism layers ($N$) required to cover the boundary layer based on a specific grid stretch ratio.
 - **Spatial Discretization Support**: Handles both **Cell-centered** and **Vertex-centered** schemes.
 
-### 🖥️ Modern Windows 11 GUI
+### 🖥️ Modern Windows 10 GUI
+
 - **Clean Interface**: Built with **PySide6 / Qt6** following modern design principles.
-- **Interactive Tools**: 
+- **Interactive Tools**:
   - Integrated **Virtual Keyboard** for touch or mouse-driven input.
   - Built-in **Search Bar** (Google/Baidu) for quick access to CFD theory.
 - **Real-time Logging**: Comprehensive log panel to track calculation steps and warnings.
 - **Input Validation**: Ensures physical realism for velocities, densities, and lengths.
 
 ### 🌐 Global Readiness
+
 - **Multilingual**: Supports English and 中文 (Simplified Chinese).
 - **Auto-detection**: Smart language and theme loading based on user settings.
 - **Persistent Settings**: Remembers your preferred formulas, units, and appearance.
@@ -65,49 +68,146 @@ By accurately estimating the first layer height, users can ensure their mesh adh
 
 ## Installation
 
-### Prerequisites
+### Option A — Standalone executable (Windows, no Python required)
 
-- **Python 3.8+**
-- **pip** package manager
+This is the recommended option for most users.
 
-### From Source
+1. Go to the [Releases page](https://github.com/mini-walker/SaMPH-yPlus/releases/tag/v1.0.0).
+2. Download `SaMPH-yPlus-V1.0.0.zip`.
+3. Extract the archive to any folder.
+4. Double-click `SaMPH-yPlus.exe` to launch.
+
+No Python installation or additional configuration is required.
+
+### Option B — Python source package
+
+For users who need customisation or wish to integrate the solver into automated pipelines.
+
+**Requirements:** Python 3.13, pip
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/SaMPH-yPlus.git
+# 1. Clone the repository
+git clone https://github.com/mini-walker/SaMPH-yPlus.git
 cd SaMPH-yPlus
 
-# Install dependencies
+# 2. Install dependencies
 pip install -r requirements.txt
 
-# Launch the application
+# 3. Launch the application
 python src/Main.py
 ```
 
-### Build Executable (Windows)
+**Core dependencies:**
 
-```bash
-# Generate a single standalone EXE
-Generate_single_exe.bat
-```
+| Package  | Version | Purpose                        |
+|----------|---------|--------------------------------|
+| PySide6  | 6.5.0   | GUI framework                  |
+| NumPy    | 1.24.0  | Numerical computations         |
+| SciPy    | 1.10.0  | Scientific utilities           |
+| Pandas   | 2.0.0   | Data export (CSV/XLSX)         |
+| OpenPyXL | 3.1.0   | Excel file writing             |
+| Requests | 2.28.0  | Integrated web search          |
 
-The compiled output will be in the `dist/` directory.
+---
+
+## User Guide
+
+This section provides a step-by-step guide to using the SaMPH-yPlus application.
+
+1. **Set model parameters** — In the *Model Parameters* panel, choose your fluid (or enter density and viscosity manually), select the spatial discretization scheme matching your CFD solver, and pick the empirical formulas for $C_f$ and $\delta$.
+
+
+2. **Enter flow conditions** — In the *Input* panel, fill in freestream velocity, freestream density, dynamic viscosity, and reference length. Optionally enter a grid stretch ratio (required for prism layer count) and your target y⁺.
+<div align="center">
+<img src="images/example-figure/screenshot-input-filled.png" width="70%">
+</div>
+*Figure 1. Input panel filled with the flat-plate benchmark values (see Worked Example).*
+
+3. **Compute** — Click the *Compute* button. Results appear immediately in the *Output* panel.
+
+<div align="center">
+<img src="images/example-figure/screenshot-output-results.png" width="70%">
+</div>
+*Figure 2. Output panel with computed results.*
+
+4. **Export results (optional)** — Click the *Export CSV* or *Export Excel* button to save the current calculation parameters and results to a file. This is especially useful for batch processing or record-keeping.
+
+<div align="center">
+<img src="images/example-figure/screenshot-export.png" width="70%">
+</div>
+*Figure 3. Export results to CSV or Excel.*
+
+
 
 ---
 
-## Quick Start
 
-1. **Launch** `SaMPH-yPlus`.
-2. **Select** your **Material** (e.g., Sea water, Air) or manually enter density and viscosity.
-3. **Choose** the **Discretization Scheme** (Cell-centered is common for OpenFOAM/Fluent).
-4. **Enter flow parameters**:
-   - Freestream Velocity ($U_\infty$)
-   - Reference Length ($L$)
-   - Target $y^+$ (e.g., 1.0 for wall-resolved, 30-100 for wall-functions)
-5. **Click** *"Compute"* (or press Enter).
-6. **Review** the output results: **First-grid spacing**, **Reynolds number**, and **Number of prism layers**.
+## Worked Example
+
+The following reproduces the flat-plate benchmark reported in the companion paper (Table 3). Use these values to verify that the software is installed and working correctly.
+
+**Test case:** Flow over a flat plate, air at 20 $^\circ$C, vertex-centered solver.
+
+**Inputs**
+
+| Parameter | Symbol | Value |
+|-----------|--------|-------|
+| Freestream velocity | $U_\infty$ | 1.0 m/s |
+| Freestream density | $\rho$ | 1.204 kg/m$^3$ |
+| Dynamic viscosity | $\mu$ | $1.825 \times 10^{-5}$ Pa·s |
+| Reference length | $L$ | 1.0 m |
+| Spatial discretization | — | Vertex-centered |
+| $C_f$ formula | — | Prandtl–Kármán (1932) |
+| $\delta$ formula | — | Schlichting (1979) |
+| Target $y^+$ | $y^+$ | 1.0 |
+| Grid stretch ratio | $r$ | 1.2 |
+
+**Expected outputs**
+
+| Parameter | Symbol | Expected value |
+|-----------|--------|---------------|
+| Reynolds number | $\mathrm{Re}$ | $6.597 \times 10^{5}$ |
+| Skin friction coefficient | $C_f$ | $6.405 \times 10^{-3}$ |
+| Boundary layer thickness | $\delta$ | $4.021 \times 10^{-2}$ m |
+| First-grid spacing | $\Delta S$ | $2.937 \times 10^{-4}$ m |
+| Number of prism layers | $N$ | 19 |
+
+Re and $\Delta S$ should match Cadence Pointwise to within 0.05% and exactly, respectively. Input files for this case and kcs bare-hull are provided in the `validation/` directory of this repository.
 
 ---
+
+## Methodology
+
+The near-wall grid parameter solver implements the following five-stage pipeline.
+
+**1. Reynolds number**
+
+$$Re = \frac{U_\infty L}{\nu}, \quad \nu = \frac{\mu}{\rho}$$
+
+**2. Skin friction coefficient** (user's choice of formula)
+
+| Formula | Expression | Applicable range |
+|---------|-----------|-----------------|
+| Prandtl–Schlichting (1979) | $C_f = [2.0 \log_{10}(Re) - 0.65]^{-2.3}$ | Re < 10⁹ |
+| Prandtl–Kármán (1932) | $C_f = 0.026\, Re^{-1/7}$ | 5×10⁵ < Re < 10⁷ |
+| ITTC-1957 | $C_f = 0.075\,[\log_{10}(Re)-2]^{-2}$ | Marine applications |
+
+**3. Boundary layer thickness** (user's choice of formula)
+
+$$\delta = \begin{cases} 0.370\, L\, Re^{-1/5} & \text{Schlichting (1979)} \\ 0.376\, L\, Re^{-1/5} & \text{White (1991)} \end{cases}$$
+
+**4. First-grid spacing**
+
+$$\Delta S = \begin{cases} 2\,y^+\,L\,(Re\sqrt{0.5\,C_f})^{-1} & \text{cell-centered} \\ y^+\,L\,(Re\sqrt{0.5\,C_f})^{-1} & \text{vertex-centered} \end{cases}$$
+
+**5. Number of prism layers** (requires grid stretch ratio r > 1)
+
+$$N = \left\lceil \frac{\ln\!\left[1 - \dfrac{\delta}{\Delta S}(1-r)\right]}{\ln r} \right\rceil$$
+
+---
+
+
+
 
 
 ## Project Structure
@@ -141,5 +241,5 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 ## Acknowledgements
 
-**Author**: Shanqin Jin  
+**Author**: Shanqin Jin
 **Contact**: sjin@mun.ca

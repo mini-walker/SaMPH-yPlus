@@ -1,7 +1,7 @@
 {
-    "Reynolds number": 68458.70124063933,
-    "Estimated skin friction coefficient": 0.005299047661494855,
-    "Estimated boundary layer thickness": 0.039913148959785996,
-    "First-grid spacing": 0.0002837836885593867,
+    "Reynolds number": 65972.60273972602,
+    "Estimated skin friction coefficient": 0.005327124307591936,
+    "Estimated boundary layer thickness": 0.04020953034047771,
+    "First-grid spacing": 0.00029370068819421487,
     "Number of prism layers": 19
 }
