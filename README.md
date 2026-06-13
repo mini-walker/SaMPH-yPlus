@@ -119,23 +119,30 @@ This section provides a step-by-step guide to using the SaMPH-yPlus application.
 
 2. **Enter flow conditions** — In the *Input* panel, fill in freestream velocity, freestream density, dynamic viscosity, and reference length. Optionally enter a grid stretch ratio (required for prism layer count) and your target y⁺.
 <div align="center">
-<img src="images/example-figure/screenshot-input-filled.png" width="70%">
+<img src="images/example-figure/screenshot-input-filled.png" width="40%">
 </div>
-*Figure 1. Input panel filled with the flat-plate benchmark values (see Worked Example).*
+<p align="center">
+<b>Figure 1.</b> Input panel filled with the flat-plate benchmark values (see Worked Example).
+</p>
+
 
 3. **Compute** — Click the *Compute* button. Results appear immediately in the *Output* panel.
 
 <div align="center">
-<img src="images/example-figure/screenshot-output-results.png" width="70%">
+<img src="images/example-figure/screenshot-output-results.png" width="40%">
 </div>
-*Figure 2. Output panel with computed results.*
+<p align="center">
+<b>Figure 2.</b> Output panel with computed results.
+</p>
 
 4. **Export results (optional)** — Click the *Export CSV* or *Export Excel* button to save the current calculation parameters and results to a file. This is especially useful for batch processing or record-keeping.
 
 <div align="center">
 <img src="images/example-figure/screenshot-export.png" width="70%">
 </div>
-*Figure 3. Export results to CSV or Excel.*
+<p align="center">
+<b>Figure 3.</b> Export results to CSV or Excel.
+</p>
 
 
 
@@ -175,38 +182,6 @@ The following reproduces the flat-plate benchmark reported in the companion pape
 Re and $\Delta S$ should match Cadence Pointwise to within 0.05% and exactly, respectively. Input files for this case and kcs bare-hull are provided in the `validation/` directory of this repository.
 
 ---
-
-## Methodology
-
-The near-wall grid parameter solver implements the following five-stage pipeline.
-
-**1. Reynolds number**
-
-$$Re = \frac{U_\infty L}{\nu}, \quad \nu = \frac{\mu}{\rho}$$
-
-**2. Skin friction coefficient** (user's choice of formula)
-
-| Formula | Expression | Applicable range |
-|---------|-----------|-----------------|
-| Prandtl–Schlichting (1979) | $C_f = [2.0 \log_{10}(Re) - 0.65]^{-2.3}$ | Re < 10⁹ |
-| Prandtl–Kármán (1932) | $C_f = 0.026\, Re^{-1/7}$ | 5×10⁵ < Re < 10⁷ |
-| ITTC-1957 | $C_f = 0.075\,[\log_{10}(Re)-2]^{-2}$ | Marine applications |
-
-**3. Boundary layer thickness** (user's choice of formula)
-
-$$\delta = \begin{cases} 0.370\, L\, Re^{-1/5} & \text{Schlichting (1979)} \\ 0.376\, L\, Re^{-1/5} & \text{White (1991)} \end{cases}$$
-
-**4. First-grid spacing**
-
-$$\Delta S = \begin{cases} 2\,y^+\,L\,(Re\sqrt{0.5\,C_f})^{-1} & \text{cell-centered} \\ y^+\,L\,(Re\sqrt{0.5\,C_f})^{-1} & \text{vertex-centered} \end{cases}$$
-
-**5. Number of prism layers** (requires grid stretch ratio r > 1)
-
-$$N = \left\lceil \frac{\ln\!\left[1 - \dfrac{\delta}{\Delta S}(1-r)\right]}{\ln r} \right\rceil$$
-
----
-
-
 
 
 
