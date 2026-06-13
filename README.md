@@ -159,10 +159,10 @@ The following reproduces the flat-plate benchmark reported in the companion pape
 
 | Parameter | Symbol | Value |
 |-----------|--------|-------|
-| Freestream velocity | $U_\infty$ | 1.0 m/s |
-| Freestream density | $\rho$ | 1.204 kg/m$^3$ |
-| Dynamic viscosity | $\mu$ | $1.825 \times 10^{-5}$ Pa·s |
-| Reference length | $L$ | 1.0 m |
+| Freestream velocity | $U_\infty$ | 1.0 $\rm m/s$ |
+| Freestream density | $\rho$ | 1.204 $\rm kg/m^3$ |
+| Dynamic viscosity | $\mu$ | $1.825 \times 10^{-5}$ $\rm Pa \cdot s$ |
+| Reference length | $L$ | 1.0 $\rm m$ |
 | Spatial discretization | — | Vertex-centered |
 | $C_f$ formula | — | Prandtl–Kármán (1932) |
 | $\delta$ formula | — | Schlichting (1979) |
@@ -173,10 +173,10 @@ The following reproduces the flat-plate benchmark reported in the companion pape
 
 | Parameter | Symbol | Expected value |
 |-----------|--------|---------------|
-| Reynolds number | $\mathrm{Re}$ | $6.597 \times 10^{5}$ |
-| Skin friction coefficient | $C_f$ | $6.405 \times 10^{-3}$ |
-| Boundary layer thickness | $\delta$ | $4.021 \times 10^{-2}$ m |
-| First-grid spacing | $\Delta S$ | $2.937 \times 10^{-4}$ m |
+| Reynolds number | $\mathrm{Re}$ | $6.597 \times 10^{4}$ |
+| Skin friction coefficient | $C_f$ | $5.327 \times 10^{-3}$ |
+| Boundary layer thickness | $\delta$ | $4.021 \times 10^{-2}$ $\rm m$ |
+| First-grid spacing | $\Delta S$ | $2.937 \times 10^{-4}$ $\rm m$ |
 | Number of prism layers | $N$ | 19 |
 
 Re and $\Delta S$ should match Cadence Pointwise to within 0.05% and exactly, respectively. Input files for this case and kcs bare-hull are provided in the `validation/` directory of this repository.
